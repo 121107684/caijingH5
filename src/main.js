@@ -7,9 +7,11 @@ import App from './App'
 import router from './router'
 import axios from 'axios'
 import navhead from "./unil/nav.vue"
+import navfooter from "./unil/footer.vue"
 
 Vue.use(Mint);
 Vue.component('navhead',navhead);
+Vue.component('navfooter',navfooter);
 axios.defaults.baseURL = "https://kelacp.cn/api"
 Vue.prototype.$ajax = axios
 Vue.config.productionTip = false
@@ -17,6 +19,6 @@ Vue.config.productionTip = false
 new Vue({
   el: '#app',
   router,
-  components: { App,navhead},
+  components: { App,navhead,navfooter},
   template: '<App/>'
 })

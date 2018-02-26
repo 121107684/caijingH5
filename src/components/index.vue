@@ -1,8 +1,6 @@
 <template>
 <div class="hello">
-  <mt-tab-container v-model="selected">
-    <mt-tab-container-item id="index" class="indexpage">
-  
+
     <!-- <mt-search v-model="value">
       <mt-cell
         v-for="item in result"
@@ -10,9 +8,9 @@
         :value="item.value" key="item" >
       </mt-cell>
     </mt-search> -->
-    <navhead></navhead>
+    
     <mt-loadmore :top-method="loadTop" :bottom-method="loadBottom" :bottom-all-loaded="allLoaded" ref="loadmore">
-    <mt-swipe class="bannerbox" :auto="4000"> 
+    <mt-swipe class="bannerbox" :auto="30000"> 
       <mt-swipe-item v-for="(item,index) in background" :key="index">
             <div class="flaxbox"> 
               <router-link :to="{path:'/info',query: {id:datas.symbol,title:datas.name}}" v-for="(datas,key) in item" :key="key" class="child br">
@@ -50,6 +48,7 @@
               <td>1</td>
             </tbody>
           </table>
+          <router-link class="seemore" :to="{path:'/list'}">查看更多</router-link>
       </mt-tab-container-item>
       <mt-tab-container-item id="2">
         <table class="table">
@@ -66,6 +65,7 @@
               <td>2</td>
             </tbody>
           </table>
+          <router-link class="seemore" :to="{path:'/list'}">查看更多</router-link>
       </mt-tab-container-item>
       <mt-tab-container-item id="3">
           <table class="table">
@@ -82,23 +82,13 @@
               <td>3</td>
             </tbody>
           </table>
+          <router-link class="seemore" :to="{path:'/list'}">查看更多</router-link>
       </mt-tab-container-item>
     </mt-tab-container>
 
     </mt-loadmore>
-    </mt-tab-container-item>
-    </mt-tab-container>
 
-    <mt-tabbar v-model="selected">
-      <mt-tab-item id="index">
-        <img slot="icon" src="../assets/hq@2x.png">
-          行情
-      </mt-tab-item>
-      <mt-tab-item id="set">
-        <img slot="icon" src="../assets/set@2x.png">
-        个人
-      </mt-tab-item>
-    </mt-tabbar>
+
   </div> 
 </template>
 
@@ -295,6 +285,7 @@ export default {
 .numname {
   color: #999;
   font-size: 1.4rem;
+  line-height: 1.6
 }
 .moneoy {
   color: #ff0000;
@@ -326,5 +317,18 @@ body, html{
 }
 .indexpage {
   height: 100%;
+}
+.seemore{
+  width: 42vw;
+  height: 8vw;
+  background-color: #498FE0;
+  border-radius: 4vw;
+  color: #fff;
+  text-align: center;
+  line-height: 8vw;
+  font-size: 1.4rem;
+  display: block;
+  margin: 1rem auto;
+  text-decoration: none
 }
 </style>

@@ -1,8 +1,8 @@
 <template>
   <div id="app">
-    
+    <navhead></navhead>
     <router-view/>
-    
+    <navfooter></navfooter>
   </div>
 </template>
 
@@ -21,6 +21,11 @@ body{background-color: #f5f5f5;min-height:100vh}
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+}
+#app>.hello{
+  min-height: 100vh;
+  padding: 44px 0 44px;
+  margin: -44px 0 -44px
 }
 .page{
   background-color: #f9f9f9
