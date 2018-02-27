@@ -10,7 +10,7 @@
     </mt-search> -->
     
     <mt-loadmore :top-method="loadTop" :bottom-method="loadBottom" :bottom-all-loaded="allLoaded" ref="loadmore">
-    <mt-swipe class="bannerbox" :auto="30000"> 
+    <mt-swipe class="bannerbox" :auto="6000"> 
       <mt-swipe-item v-for="(item,index) in background" :key="index">
             <div class="flaxbox"> 
               <router-link :to="{path:'/info',query: {id:datas.symbol,title:datas.name}}" v-for="(datas,key) in item" :key="key" class="child br">
@@ -205,7 +205,7 @@ function backdata(obj) {
   height: auto;
 }
 .bannerbox {
-  height: 9rem;
+  height: 10rem;
   width: 100%;
   background: #fff;
 }
@@ -219,7 +219,7 @@ function backdata(obj) {
 .flaxbox .child.br {
   border-right: 1px solid #ccc;
   margin-top: 1.2rem;
-  height: 5rem;
+  height: 6rem;
   text-decoration: none;
 }
 .flaxbox .child.br:last-child {

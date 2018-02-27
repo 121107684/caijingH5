@@ -2,7 +2,7 @@
   <div class="hello">
   <div class="nametopof flbb">
     <div class="codename"><img :src="infodata.logo" alt="">{{infodata.symbol}}</div>
-    <div class="thebest flbb">
+    <div class="thebest flbb" v-if="codekey.length>0">
       <span v-for="(item,index) in codekey" :key="index">{{item}}</span>
     </div>
   </div>
@@ -59,13 +59,14 @@
       <div class="name">核心算法</div>
       <div class="textin">{{infodata.algorithm}}</div>
     </div>
-    <div>
+    <div  v-if="infodata.whitepaper.length>0">
       <div class="name">白皮书地址</div>
-      <div class="textin">{{infodata.whitepaper}}</div>
+      <a  class="textin" target="_blank" :href="infodata.whitepaper" >点击查看</a>
+      <!-- <router-link  :to="infodata.whitepaper"  target="_blank"></router-link> -->
     </div>
-    <div>
+    <div v-if="infodata.website.length>0">
       <div class="name">官网地址</div>
-      <div class="textin">{{infodata.website}}</div>
+      <a  class="textin" target="_blank" :href="infodata.website" >点击进入</a>
     </div>
     <div>
       <div class="name">主要特色</div>
@@ -113,7 +114,7 @@ export default {
       moretext: "查看更多",
       infodata: {},
       codeEXinfolist:"",
-      codekey:''
+      codekey:[]
     };
   },
   created:function(){
@@ -126,7 +127,10 @@ export default {
       .then(res=>{
 
         this.infodata = res.data.data;
-        this.codekey = res.data.data.key_features.split('，')
+        if(res.data.data.key_features!=null && res.data.data.key_features!=""){
+            this.codekey = res.data.data.key_features.split('，')
+        }
+        
       })
   },
   methods: {
@@ -192,7 +196,7 @@ function Trim(str, is_global) {
 }
 .thebest span {
 
-  line-height:2rem;
+  line-height:2.2rem;
   text-align: center;
   background-color: #F43530;
   color: #fff;
@@ -200,7 +204,7 @@ function Trim(str, is_global) {
   padding: 0 5px;
   border-radius: 3px;
   text-overflow: ellipsis;
-  white-space: nowrap;
+ 
   overflow: hidden;
 }
 .thebest {
@@ -268,7 +272,7 @@ function Trim(str, is_global) {
   transform: all 0.5s;
 }
 .about .elep {
-  font-size: 12px;
+  font-size: 14px;
   text-align: left;
 }
 .btnmore {
@@ -307,6 +311,11 @@ function Trim(str, is_global) {
   color: #666;
   text-align: right;
   padding-right: 14px;
+}
+.infolist a.textin {
+  color: #498fe0;
+  font-weight: bold;
+  text-decoration: none
 }
 .infolist > div:last-child {
   display: block;
@@ -350,14 +359,15 @@ function Trim(str, is_global) {
   display: flex;
 }
 .listbody .child {
-  padding: 10px 0px;
+  padding: 6px 0px 3px;
 }
 .listbody .child .othertitle,
 .listbody .child .place .usd {
   font-size: 1.5rem;
   color: #333;
   text-align: left;
-  text-indent: 1rem
+  text-indent: 1rem;
+  font-weight: bold
 }
 .listbody .child .othertitle .small,
 .listbody .child .place .rmb {

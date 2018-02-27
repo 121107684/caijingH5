@@ -11,12 +11,15 @@
 
 <style scoped>
     .container {
-        height: 6rem;
+        height: 8rem;
         width: 100%;
         background-color: #000;
         color: rgb(233, 220, 220);
         font-size: 1.4rem;
         padding: 1rem 2rem
+    }
+    a{
+        line-height: 3rem
     }
     .flbb{
         width: 100%

@@ -24,8 +24,8 @@ body{background-color: #f5f5f5;min-height:100vh}
 }
 #app>.hello{
   min-height: 100vh;
-  padding:13.5vw 0 6rem;
-  margin: -13.5vw 0 -6rem
+  padding:13.5vw 0 8rem;
+  margin: -13.5vw 0 -8rem
 }
 .page{
   background-color: #f9f9f9

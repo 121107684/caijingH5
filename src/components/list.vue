@@ -1,21 +1,23 @@
 <template>
+<div class="hello">
   <div class="listbody">
     <div class="topsearch flbb">
       <div class="leftbox flbb">
         <div class="codenametext">货币切换:</div>
-        <select name="" id="">
-          <option value="">¥人民币</option>
-          <option value="">$美元</option>
+        <select name="" id="" v-model="moneytype">
+          <option value="CNY">¥人民币</option>
+          <option value="USD">$美元</option>
         </select>
       </div>
       <div class="rightbox">
         <div class="inbox clearfix">
-            <input type="text" placeholder="搜索币种">
-            <button></button>
+            <input type="text" placeholder="搜索币种"  v-model="codetext">
+            <button v-on:click="searchdata"></button>
         </div>
             
       </div>
   </div>
+  <mt-loadmore :top-method="loadTop" :bottom-method="loadBottom" :bottom-all-loaded="allLoaded" ref="loadmore">
   <div class="listtitle parent">
     <div bindtap="titletap" data-type="name" class="name"><div class="nametext">名称</div><div class="icos"></div></div>
     <div bindtap="titletap" data-type="price" class="newplace"><div class="nametext">最新价</div><div class="icos"></div></div>
@@ -25,11 +27,13 @@
   </div>
   <router-link  v-for="(datasup,index) in alllist" :key="index" :to="{path:'/info',query: {id:datasup.symbol,title:datasup.name}}" class="listtitle child">
     <div class="name">{{datasup.symbol}}</div>
-    <div class="newplace" :class="datasup.hasbl?'greentext':'redtext'">¥{{datasup.price_cny}}</div>
+    <div class="newplace" :class="datasup.hasbl?'greentext':'redtext'">{{moneysty}}{{datasup.price_usd}}</div>
     <div class="upordown" :class="datasup.hasbl?'greentext':'redtext'">{{datasup.percent_change_24h}}% </div>
     <div class="cjnum">{{datasup.volume_24h_usd}}</div>
     <div class="sz">¥{{datasup.market_cap_usd}}</div>
   </router-link >
+  </mt-loadmore>
+  </div>
   </div>
 </template>
 
@@ -40,22 +44,74 @@ export default {
     return {
       alllist: "",
       result: [{ title: "aaa" }],
-      value: ""
+      value: "",
+      moneytype:'CNY',
+      moneysty:"¥",
+      codetext:'',
+      allLoaded: true
     };
   },
   created:function(){
-    console.log(this.$route.query);
-    this.$ajax.get("/getAllCoins/cap/desc")
+    console.log(this.moneytype);
+    this.$options.methods.onloaddata(this);
+  },
+  watch:{
+    moneytype:function(n,o){
+      this.alllist = []
+      this.codetext = ""
+     this.$ajax.get("/getAllCoins/"+this.moneytype)
       .then(res=>{
           var fzarr = [];
           for (var i = 0; i < res.data.data.length; i++) {
             fzarr.push(backdata(res.data.data[i]))
           }
+          if(this.moneytype=="USD"){
+            this.moneysty = "$"
+          }else{
+            this.moneysty = "¥"
+          }
         this.alllist = fzarr
       })
+    }
   },
+
   methods: {
-    handleChange(index) {}
+    onloaddata:function(that){
+      this.codetext= ""
+      that.$ajax.get("/getAllCoins/"+that.moneytype)
+      .then(res=>{
+          var fzarr = [];
+          for (var i = 0; i < res.data.data.length; i++) {
+            fzarr.push(backdata(res.data.data[i]))
+          }
+        that.alllist = fzarr
+      })
+    },
+    handleChange(index) {},
+    loadTop() {
+      this.$refs.loadmore.onTopLoaded();
+      this.$options.methods.onloaddata(this);
+    },
+    loadBottom() {
+      this.allLoaded = true; // 若数据已全部获取完毕
+      this.$refs.loadmore.onBottomLoaded();
+    },
+    searchdata:function(){
+      this.alllist = []
+      this.$ajax.get("/getSearchList/"+this.codetext)
+      .then(res=>{
+          var fzarr = [];
+          for (var i = 0; i < res.data.data.length; i++) {
+            fzarr.push(backdata(res.data.data[i]))
+          }
+          if(this.moneytype=="USD"){
+            this.moneysty = "$"
+          }else{
+            this.moneysty = "¥"
+          }
+        this.alllist = fzarr
+      })
+    }
   }
 };
 function backdata(obj) {
