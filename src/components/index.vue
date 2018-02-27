@@ -33,55 +33,55 @@
 
   <!-- tab-container -->
     <mt-tab-container v-model="selectednavb">
-      <mt-tab-container-item id="1">
-          <table class="table">
-            <thead>
-                <td>名称</td>
-                <td>价格</td>
-                <td>成交额</td>
-                <td>涨跌幅</td>
-            </thead>
-            <tbody>
-              <td>1</td>
-              <td>1</td>
-              <td>1</td>
-              <td>1</td>
-            </tbody>
-          </table>
+      <mt-tab-container-item id="1" class="listbody">
+           <div class="listtitle parent">
+                      <div class="name">名称</div>
+                      <div class="place ">价格</div>
+                      <div class="cjnum ">成交额</div>
+                      <div class="bfb textright">涨跌幅</div>
+                   </div>
+            <router-link class="listtitle child" v-for="(datasup,index) in caplist" :key="index" :to="{path:'/info',query: {id:datasup.symbol,title:datasup.name}}">
+                <div class="name">{{datasup.symbol}}</div>
+                      <div class="place ">¥{{datasup.price_cny}}</div>
+                     <div class="cjnum ">${{datasup.market_cap_usd}}</div>
+                      <div class="bfb">
+                        <div :class="datasup.hasbl?'green':'red'">{{datasup.hasbl?'':'+'}}{{datasup.percent_change_24h}}%</div>
+                      </div>
+            </router-link>
           <router-link class="seemore" :to="{path:'/list'}">查看更多</router-link>
       </mt-tab-container-item>
-      <mt-tab-container-item id="2">
-        <table class="table">
-            <thead>
-                <td>名称</td>
-                <td>价格</td>
-                <td>成交额</td>
-                <td>涨跌幅</td>
-            </thead>
-            <tbody>
-              <td>2</td>
-              <td>2</td>
-              <td>2</td>
-              <td>2</td>
-            </tbody>
-          </table>
+      <mt-tab-container-item id="2"  class="listbody">
+        <div class="listtitle parent">
+                      <div class="name">名称</div>
+                      <div class="place ">价格</div>
+                      <div class="cjnum ">成交额</div>
+                      <div class="bfb textright">涨跌幅</div>
+                   </div>
+            <router-link class="listtitle child" v-for="(datasup,index) in uplist" :key="index" :to="{path:'/info',query: {id:datasup.symbol,title:datasup.name}}">
+                <div class="name">{{datasup.symbol}}</div>
+                      <div class="place ">¥{{datasup.price_cny}}</div>
+                     <div class="cjnum ">${{datasup.volume_24h_usd}}</div>
+                      <div class="bfb">
+                        <div  class="red">+{{datasup.percent_change_24h}}%</div>
+                      </div>
+            </router-link>
           <router-link class="seemore" :to="{path:'/list'}">查看更多</router-link>
       </mt-tab-container-item>
-      <mt-tab-container-item id="3">
-          <table class="table">
-            <thead>
-                <td>名称</td>
-                <td>价格</td>
-                <td>成交额</td>
-                <td>涨跌幅</td>
-            </thead>
-            <tbody>
-              <td>3</td>
-              <td>3</td>
-              <td>3</td>
-              <td>3</td>
-            </tbody>
-          </table>
+      <mt-tab-container-item id="3"  class="listbody">
+          <div class="listtitle parent">
+                      <div class="name">名称</div>
+                      <div class="place ">价格</div>
+                      <div class="cjnum ">成交额</div>
+                      <div class="bfb textright">涨跌幅</div>
+                   </div>
+            <router-link class="listtitle child" v-for="(datasup,index) in downlist" :key="index" :to="{path:'/info',query: {id:datasup.symbol,title:datasup.name}}">
+                <div class="name">{{datasup.symbol}}</div>
+                      <div class="place ">¥{{datasup.price_cny}}</div>
+                     <div class="cjnum ">${{datasup.volume_24h_usd}}</div>
+                      <div class="bfb">
+                        <div class="green">{{datasup.percent_change_24h}}%</div>
+                      </div>
+            </router-link>
           <router-link class="seemore" :to="{path:'/list'}">查看更多</router-link>
       </mt-tab-container-item>
     </mt-tab-container>
@@ -103,85 +103,18 @@ export default {
       selected: "index",
       selectednavb: "1",
       topStatus: "",
-      allLoaded:true,
-      background: [
-        [
-          {
-            symbol: "BTC",
-            name: "Bitcoin",
-            name_pair: "BTC/CNY",
-            price_usd: "10212.40",
-            percent_change_24h: "0.78",
-            rank: "1",
-            volumn_change_24h: "79.04",
-            price_cny: "64215.78",
-            hasbl: false
-          },
-          {
-            symbol: "ETH",
-            name: "Ethereum",
-            name_pair: "ETH/CNY",
-            price_usd: "850.67",
-            percent_change_24h: "-0.92",
-            rank: "2",
-            volumn_change_24h: "-7.90",
-            price_cny: "5349.04",
-            hasbl: true
-          },
-          {
-            symbol: "LTC",
-            name: "Litecoin",
-            name_pair: "LTC/CNY",
-            price_usd: "209.15",
-            percent_change_24h: "3.15",
-            rank: "3",
-            volumn_change_24h: "6.39",
-            price_cny: "1315.16",
-            hasbl: false
-          }
-        ],
-        [
-          {
-            symbol: "BCH",
-            name: "Bitcoin Cash",
-            name_pair: "BCH/CNY",
-            price_usd: "1239.03",
-            percent_change_24h: "-2.08",
-            rank: "4",
-            volumn_change_24h: "-26.32",
-            price_cny: "7791.05",
-            hasbl: true
-          },
-          {
-            symbol: "XRP",
-            name: "Ripple",
-            name_pair: "XRP/CNY",
-            price_usd: "0.97",
-            percent_change_24h: "-1.87",
-            rank: "5",
-            volumn_change_24h: "-0.02",
-            price_cny: "6.09",
-            hasbl: true
-          },
-          {
-            symbol: "ADA",
-            name: "Cardano",
-            name_pair: "ADA/CNY",
-            price_usd: "0.34",
-            percent_change_24h: "-0.02",
-            rank: "6",
-            volumn_change_24h: "0.00",
-            price_cny: "2.12",
-            hasbl: true
-          }
-        ]
-      ]
+      allLoaded: true,
+      background: [],
+      caplist: [],
+      uplist:[],
+      downlist:[]
     };
   },
   props: {},
   components: {},
   created: function() {
-    console.log(this.$options.methods);
+    console.log(this);
+    this.$options.methods.onloaddata(this);
   },
   watch: {
     selected: function(newv, oldv) {
@@ -189,11 +122,10 @@ export default {
     }
   },
   methods: {
-    onloaddata: function() {
-      this.$ajax
+    onloaddata: function(that) {
+      that.$ajax
         .get("/getFocusCoins", { params: {} })
         .then(res => {
-          //
           var fzarr = [];
           for (var i = 0; i < res.data.data.length; i) {
             var temparr = [];
@@ -204,38 +136,41 @@ export default {
             i = i + 3;
             fzarr.push(temparr);
           }
-          console.log(fzarr);
-          this.background = fzarr;
+          
+          console.log(this);
+          //Vue.set(this.background,fzarr)
+          that.background = fzarr;
         })
         .catch(err => {
           console.log(err);
         });
 
-      this.$ajax
+      that.$ajax
         .get("/getWaveList/down", { params: {} })
         .then(res => {
-          //
-          this.downlist = res.data.data;
+          that.downlist = res.data.data;
         })
         .catch(err => {
           console.log(err);
         });
 
-      this.$ajax
+      that.$ajax
         .get("/getWaveList/up", { params: {} })
         .then(res => {
-          //
-          this.uplist = res.data.data;
+          that.uplist = res.data.data;
         })
         .catch(err => {
           console.log(err);
         });
 
-      this.$ajax
+      that.$ajax
         .get("/getMarketCapList", { params: {} })
         .then(res => {
-          //
-          this.caplist = res.data.data;
+          var fzarr = [];
+          for (var i = 0; i < res.data.data.length; i++) {
+            fzarr.push(backdata(res.data.data[i]))
+          }
+          that.caplist = fzarr;
         })
         .catch(err => {
           console.log(err);
@@ -243,14 +178,22 @@ export default {
     },
     loadTop() {
       this.$refs.loadmore.onTopLoaded();
+      this.$options.methods.onloaddata(this);
     },
     loadBottom() {
-    
-    this.allLoaded = true;// 若数据已全部获取完毕
-    this.$refs.loadmore.onBottomLoaded();
-  }
+      this.allLoaded = true; // 若数据已全部获取完毕
+      this.$refs.loadmore.onBottomLoaded();
+    }
   }
 };
+function backdata(obj) {
+            if (obj.percent_change_24h.indexOf("-") > -1) {
+              obj.hasbl = true;
+            } else {
+              obj.hasbl = false;
+            }
+            return obj;
+          }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
@@ -285,7 +228,7 @@ export default {
 .numname {
   color: #999;
   font-size: 1.4rem;
-  line-height: 1.6
+  line-height: 1.6;
 }
 .moneoy {
   color: #ff0000;
@@ -304,24 +247,33 @@ export default {
 }
 .listbody .listtitle.child .bfb {
   text-align: right;
-  margin-right: 2rem;
+  margin-right:10px;
 }
 .table {
   width: 100%;
 }
 .mint-navbar {
-  background-color: #ddd;
+  background-color: #f4f4f4;
 }
-body, html{
+.mint-navbar .mint-tab-item{
+  padding: 14px 0;
+  font-size: 16px
+}
+.mint-navbar .mint-tab-item.is-selected{
+  background-color: #eaeaea;
+  color: #333;
+}
+body,
+html {
   height: 100%;
 }
 .indexpage {
   height: 100%;
 }
-.seemore{
+.seemore {
   width: 42vw;
   height: 8vw;
-  background-color: #498FE0;
+  background-color: #498fe0;
   border-radius: 4vw;
   color: #fff;
   text-align: center;
@@ -329,6 +281,6 @@ body, html{
   font-size: 1.4rem;
   display: block;
   margin: 1rem auto;
-  text-decoration: none
+  text-decoration: none;
 }
 </style>

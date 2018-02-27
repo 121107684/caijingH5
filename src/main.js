@@ -12,7 +12,7 @@ import navfooter from "./unil/footer.vue"
 Vue.use(Mint);
 Vue.component('navhead',navhead);
 Vue.component('navfooter',navfooter);
-axios.defaults.baseURL = "https://kelacp.cn/api"
+axios.defaults.baseURL = "https://kelacp.cn/h5"
 Vue.prototype.$ajax = axios
 Vue.config.productionTip = false
 /* eslint-disable no-new */

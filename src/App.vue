@@ -24,8 +24,8 @@ body{background-color: #f5f5f5;min-height:100vh}
 }
 #app>.hello{
   min-height: 100vh;
-  padding: 44px 0 44px;
-  margin: -44px 0 -44px
+  padding:13.5vw 0 6rem;
+  margin: -13.5vw 0 -6rem
 }
 .page{
   background-color: #f9f9f9
@@ -61,27 +61,30 @@ body{background-color: #f5f5f5;min-height:100vh}
 .listbody .listtitle{
   display: flex;
   border-bottom:1px solid #e0e0e0;
+  text-decoration: none;
+  color: #333
 }
 .listbody .listtitle:last-child{
   border: none
 }
-.listbody .listtitle>view,
-.listbody .listtitle>navigator{
+.listbody .listtitle>div,
+.listbody .listtitle>.child{
   flex: 1;
-  text-indent: 1em;
   font-size: 1.4rem;
-  line-height: 8rem;
+  line-height: 3;
   overflow: hidden;
 text-overflow:ellipsis;
 white-space: nowrap;
+
 }
-.listbody .listtitle view.child,
-.listbody .listtitle>navigator.child{
+.listbody .listtitle .child,
+.listbody .listtitle>.child{
   font-size: 1.4rem;
   padding-right:.5rem;
 }
 .listbody .listtitle.parent .bfb{
   text-align:center;
+  padding-right: 10px
 }
 .listbody .listtitle .red{
   color: #fff;
@@ -89,7 +92,7 @@ white-space: nowrap;
   border-radius: 1rem;
   display: inline;
   line-height: 20px;
-  padding: 6px 10px;
+  padding:.2rem .5rem;
   
 }
 .green{
@@ -98,7 +101,7 @@ white-space: nowrap;
   border-radius: 20px;
   display: inline;
   line-height: 40px;
-   padding: 6px 10px;
+  padding:.2rem .5rem;
 }
 .seeall{
   line-height: 88px;

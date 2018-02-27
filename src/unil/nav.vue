@@ -1,14 +1,18 @@
 <template>
     <div class="container">
-        顶部公共头
+        <router-link :to="{path:'/'}">
+            <img src="../assets/navtop_02.jpg" alt="">
+        </router-link>
     </div>
 </template>
 
 <style scoped>
     .container {
-        height: 44px;
         width: 100%;
-        
+    }
+    .container img{
+        display:block;
+        width: 100%;
     }
 </style>
 

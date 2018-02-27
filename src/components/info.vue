@@ -1,11 +1,9 @@
 <template>
   <div class="hello">
   <div class="nametopof flbb">
-    <div class="codename">BTC</div>
+    <div class="codename"><img :src="infodata.logo" alt="">{{infodata.symbol}}</div>
     <div class="thebest flbb">
-      <span>市值第一</span>
-      <span>市值第一</span>
-      <span>市值第一</span>
+      <span v-for="(item,index) in codekey" :key="index">{{item}}</span>
     </div>
   </div>
   <div class="numcode">
@@ -62,35 +60,44 @@
       <div class="textin">{{infodata.algorithm}}</div>
     </div>
     <div>
+      <div class="name">白皮书地址</div>
+      <div class="textin">{{infodata.whitepaper}}</div>
+    </div>
+    <div>
+      <div class="name">官网地址</div>
+      <div class="textin">{{infodata.website}}</div>
+    </div>
+    <div>
       <div class="name">主要特色</div>
       <div class="textin">{{infodata.key_features}}</div>
     </div>
   </div>
 
+
+
   <div class="infoother listbody">
-    <table>
-    <thead class="listtitle">
-      <td class="name">市场</td>
-      <td class="place">价格</td>
-      <td class="cjnum">24H交易量</td>
-    </thead>
-    <tbody v-for="(item,index) in codeEXinfolist" :key="index" class="listtitle child">
-      <td class="name">
+    <div class="listtitle">
+      <div class="name">市场</div>
+      <div class="place">价格</div>
+      <div class="cjnum">24H交易量</div>
+    </div>
+    <div v-for="(item,index) in codeEXinfolist" :key="index" class="listtitle child">
+      <div class="name">
         <div class="othertitle">
           {{item.exchange}}<div class="small">{{item.coin_pair}}</div>
         </div>
         <div class="otherinfo">占比{{item.volume24h_percentag}}%</div>
-      </td>
-      <td class="place">
+      </div>
+      <div class="place">
         <div class="usd">¥{{item.price_cny}}</div>
         <div class="rmb">${{item.price}}</div>
-      </td>
-      <td class="bfb">
+      </div>
+      <div class="bfb">
         <div>{{item.volume24h}}</div>
-      </td>
-    </tbody>
-    </table>
+      </div>
+    </div>
   </div>
+  
 </div>
 </template>
 
@@ -104,25 +111,23 @@ export default {
       infodata: {},
       codeEXinfolist: [],
       moretext: "查看更多",
-      infodata: {
-        name: "Bitcoin",
-        symbol: "BTC",
-        price_usd: "9823.33",
-        volume_24h_usd: "392亿",
-        market_cap_usd: "10429.81亿",
-        percent_change_24h: "-3.87",
-        summary:
-          "由中本聪在2009年提出，据其思路设计发布的开源软件以及建构其上的P2P网络。比特币依据特定算法，通过大量的计算产生，不依靠特定货币机构发行，其使用整个P2P网络中众多节点构成的分布式数据库来确认并记录所有的交易行为，并使用密码学设计确保货币流通各个环节安全性，可确保无法通过大量制造比特币来人为操控币值。基于密码学的设计可以使比特币只能被真实的拥有者转移或支付及兑现。同样确保了货币所有权与流通交易的匿名性。比特币总数有限，其总数量将被限制在2100万个。",
-        total_amount: "21000000",
-        exist_turnover: "16536762",
-        pub_date: "2009/1/3",
-        algorithm: "script",
-        key_features: "虚拟币始创者，受众最广，被信任最高",
-        high: "66635.41",
-        low: "60031.54",
-        price_cny: "61769.30"
-      }
+      infodata: {},
+      codeEXinfolist:"",
+      codekey:''
     };
+  },
+  created:function(){
+    console.log(this.$route.query);
+    this.$ajax.get("/getCoinExchangeList/" + this.$route.query.id + "/" + Trim(this.$route.query.title,'g'))
+      .then(res=>{
+        this.codeEXinfolist = res.data.data
+      })
+    this.$ajax.get("/getCoinDetails/" + this.$route.query.id + "/" + Trim(this.$route.query.title,'g'))
+      .then(res=>{
+
+        this.infodata = res.data.data;
+        this.codekey = res.data.data.key_features.split('，')
+      })
   },
   methods: {
     handleChange(index) {},
@@ -133,10 +138,18 @@ export default {
     }
   }
 };
+function Trim(str, is_global) {
+  var result;
+  console.log(str)
+  result = str.replace(/(^\s+)|(\s+$)/g, "");
+  if (is_global.toLowerCase() == "g") {
+    result = result.replace(/\s/g, "");
+  }
+  return result;
+}
 </script>
 
-<style>
-/* pages/info/info.wxss */
+<style scoped>
 .w60{
   flex: 5;
   font-size: 1.4rem;
@@ -147,12 +160,16 @@ export default {
   font-size: 1.4rem;
   line-height: 2.2rem
 }
+.nametopof {
+  padding-top: 1rem
+}
 .w40>div, .w60>div{
   flex: 1;
   text-align: left;
+  line-height: 2.6rem
 }
 .hello{
-  background-color: #fff
+  background-color: #fff;
 }
 .numcode {
   display: flex;
@@ -160,19 +177,35 @@ export default {
   padding-top: 1rem;
 }
 .nametopof .codename{
-  width: 20vw;
+  width: 30vw;
   font-size: 2.2rem;
   font-weight: bold;
 }
+.nametopof .codename img{
+  width: 2rem;
+  height: auto;
+  display: inline-block;
+  position: relative;
+  top: .2rem;
+  float: left;
+  margin-left: 1rem
+}
 .thebest span {
-  flex: 1;
-  line-height:1.6rem;
+
+  line-height:2rem;
   text-align: center;
   background-color: #F43530;
   color: #fff;
   margin:.3rem 2px;
   padding: 0 5px;
-  border-radius: 3px
+  border-radius: 3px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.thebest {
+  flex: 1;
+  padding-right: 1rem
 }
 .money,
 .boxcode,
@@ -187,21 +220,24 @@ export default {
 .money {
   padding-left: 15px;
   margin-top: -6px;
-  line-height: 1.2
+  line-height: 1.2;
+  box-sizing: border-box
 }
 .money .usd {
   font-size:2.4rem;
-  margin-right: 8px
+  margin-right: 8px;
+  line-height: 2.6rem;
 }
 .money>.flbb{
-  width: 100vw;
   height: 2.6rem;
 }
 .codeinfo {
-  padding-top: .4rem;
+  padding-top: .8rem;
   font-size: 1.2em;
   color: #f43530;
-  
+  flex: 1;
+  text-align: left;
+  line-height: 1
 }
 .codeinfo.greentt {
   color: #00c203;
@@ -215,7 +251,7 @@ export default {
   color: #999;
 }
 .heidata {
-  height: 110px;
+  height:4.2rem;
 }
 .heidatano {
   height: auto;
@@ -272,16 +308,16 @@ export default {
   text-align: right;
   padding-right: 14px;
 }
-.infolist > view:last-child {
+.infolist > div:last-child {
   display: block;
   height: auto;
   border-bottom: none;
 }
-.infolist > view:last-child .name {
+.infolist > div:last-child .name {
   line-height: 1.5;
   padding-top: 10px;
 }
-.infolist > view:last-child .textin {
+.infolist > div:last-child .textin {
   text-align: left;
   padding-left: 14px;
   line-height: 1.5;
@@ -296,10 +332,18 @@ export default {
 .listbody .listtitle:first-child .cjnum {
   line-height: 44px;
 }
-.listbody .listtitle > view {
+.listbody .listtitle:first-child .name{
+  text-align: left;
+  text-indent: 1rem
+}
+.listbody .listtitle:first-child .place{
+  text-indent: 1.8rem;
+  text-align: left
+}
+.listbody .listtitle > div {
   line-height: 1.5;
 }
-.listbody .listtitle > view.name {
+.listbody .listtitle > div.name {
   flex: 2;
 }
 .listtitle .name .othertitle {
@@ -310,23 +354,30 @@ export default {
 }
 .listbody .child .othertitle,
 .listbody .child .place .usd {
-  font-size: 30rpx;
+  font-size: 1.5rem;
   color: #333;
+  text-align: left;
+  text-indent: 1rem
 }
 .listbody .child .othertitle .small,
 .listbody .child .place .rmb {
-  font-size: 24rpx;
+  font-size:1.2rem;
   color: #999;
   line-height: 1;
-  margin-top: 14rpx;
+  margin-top:.5rem;
+  text-align: left;
+   text-indent: 1rem
 }
 .listbody .child .otherinfo {
-  padding-top: 10rpx;
-  font-size: 22rpx;
+  padding-top: .5rem;
+  font-size:1.2rem;
   color: #999;
+  line-height: 1;
+  text-align: left;
+   text-indent: 1rem
 }
-.listbody .listtitle.child .bfb view {
-  line-height: 80rpx;
-  font-size: 32rpx;
+.listbody .listtitle.child .bfb div {
+  line-height:4rem;
+  font-size:1.6rem;
 }
 </style>

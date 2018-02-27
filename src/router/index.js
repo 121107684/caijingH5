@@ -2,7 +2,9 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import index from '@/components/index'
 import list from '@/components/list'
-import set from '@/components/set'
+import about from '@/components/about'
+import copyright from '@/components/copyright'
+import declaration from '@/components/declaration'
 import info from '@/components/info'
 
 Vue.use(Router)
@@ -20,9 +22,19 @@ export default new Router({
       component: list,
     },
     {
-      path: '/set',
-      name: 'set',
-      component: set,
+      path: '/about',
+      name: 'about',
+      component: about,
+    },
+    {
+      path: '/copyright',
+      name: 'copyright',
+      component: copyright,
+    },
+    {
+      path: '/declaration',
+      name: 'declaration',
+      component: declaration,
     },
     {
       path: '/info',
