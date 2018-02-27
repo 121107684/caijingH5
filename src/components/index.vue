@@ -113,13 +113,7 @@ export default {
   props: {},
   components: {},
   created: function() {
-    console.log(this);
     this.$options.methods.onloaddata(this);
-  },
-  watch: {
-    selected: function(newv, oldv) {
-      //console.log(newv, oldv);
-    }
   },
   methods: {
     onloaddata: function(that) {
@@ -136,13 +130,11 @@ export default {
             i = i + 3;
             fzarr.push(temparr);
           }
-          
-          console.log(this);
+        
           //Vue.set(this.background,fzarr)
           that.background = fzarr;
         })
         .catch(err => {
-          console.log(err);
         });
 
       that.$ajax

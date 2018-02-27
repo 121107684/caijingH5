@@ -1,5 +1,6 @@
 <template>
   <div class="hello">
+    <mt-loadmore :top-method="loadTop" :bottom-method="loadBottom" :bottom-all-loaded="allLoaded" ref="loadmore">
   <div class="nametopof flbb">
     <div class="codename"><img :src="infodata.logo" alt="">{{infodata.symbol}}</div>
     <div class="thebest flbb" v-if="codekey.length>0">
@@ -59,12 +60,12 @@
       <div class="name">核心算法</div>
       <div class="textin">{{infodata.algorithm}}</div>
     </div>
-    <div  v-if="infodata.whitepaper.length>0">
+    <div  v-if="infodata.whitepaper!='' && infodata.whitepaper!=null">
       <div class="name">白皮书地址</div>
       <a  class="textin" target="_blank" :href="infodata.whitepaper" >点击查看</a>
       <!-- <router-link  :to="infodata.whitepaper"  target="_blank"></router-link> -->
     </div>
-    <div v-if="infodata.website.length>0">
+   <div v-if="infodata.website!='' && infodata.website!=null ">
       <div class="name">官网地址</div>
       <a  class="textin" target="_blank" :href="infodata.website" >点击进入</a>
     </div>
@@ -98,7 +99,8 @@
       </div>
     </div>
   </div>
-  
+   </mt-loadmore>
+
 </div>
 </template>
 
@@ -112,39 +114,46 @@ export default {
       infodata: {},
       codeEXinfolist: [],
       moretext: "查看更多",
-      infodata: {},
       codeEXinfolist:"",
-      codekey:[]
+      codekey:[],
+      allLoaded: true
     };
   },
   created:function(){
-    console.log(this.$route.query);
-    this.$ajax.get("/getCoinExchangeList/" + this.$route.query.id + "/" + Trim(this.$route.query.title,'g'))
-      .then(res=>{
-        this.codeEXinfolist = res.data.data
-      })
-    this.$ajax.get("/getCoinDetails/" + this.$route.query.id + "/" + Trim(this.$route.query.title,'g'))
-      .then(res=>{
-
-        this.infodata = res.data.data;
-        if(res.data.data.key_features!=null && res.data.data.key_features!=""){
-            this.codekey = res.data.data.key_features.split('，')
-        }
-        
-      })
+    this.$options.methods.onloaddata(this);
   },
   methods: {
     handleChange(index) {},
+    onloaddata:function(that){
+      that.$ajax.get("/getCoinExchangeList/" + that.$route.query.id + "/" + Trim(that.$route.query.title,'g'))
+      .then(res=>{
+        that.codeEXinfolist = res.data.data
+      })
+    that.$ajax.get("/getCoinDetails/" + that.$route.query.id + "/" + Trim(that.$route.query.title,'g'))
+      .then(res=>{
+        that.infodata = res.data.data;
+        if(res.data.data.key_features!=null && res.data.data.key_features!=""){
+            that.codekey = res.data.data.key_features.split('，')
+        }
+        
+      })
+    },
     showorhide: function() {
-      console.log("aaaa");
       this.heidata = this.heidata ? false : true;
       this.moretext = this.heidata ? "查看更多" : "点击收起";
+    },
+    loadTop() {
+      this.$refs.loadmore.onTopLoaded();
+      this.$options.methods.onloaddata(this);
+    },
+    loadBottom() {
+      this.allLoaded = true; // 若数据已全部获取完毕
+      this.$refs.loadmore.onBottomLoaded();
     }
   }
 };
 function Trim(str, is_global) {
   var result;
-  console.log(str)
   result = str.replace(/(^\s+)|(\s+$)/g, "");
   if (is_global.toLowerCase() == "g") {
     result = result.replace(/\s/g, "");
