@@ -41,7 +41,7 @@
     <div class="elep">{{infodata.summary}}</div>
     <img v-if="heidata" src="../assets/bgwhit.png" class="bgwhite">
   </div>
-  <div class="btnmore">
+  <div class="btnmore clearfix">
     <div class="morebtn" v-on:click='showorhide()'>{{moretext}}</div>
     </div>
   <div class="infolist">
@@ -185,7 +185,8 @@ function Trim(str, is_global) {
 .w40{
   flex: 4;
   font-size: 1.4rem;
-  line-height: 2.2rem
+  line-height: 2.2rem;
+  padding-top:8px
 }
 .nametopof {
   padding-top: 1rem
@@ -196,10 +197,11 @@ function Trim(str, is_global) {
 .w40>div, .w60>div{
   flex: 1;
   text-align: left;
-  line-height: 2.6rem
+  line-height:20px;
+  font-size: 14px
 }
 .hello{
-  background-color: #fff;
+  background-color: #fcfcfc;
 }
 .numcode {
   display: flex;
@@ -207,28 +209,29 @@ function Trim(str, is_global) {
   padding-top: 1rem;
 }
 .nametopof .codename{
-  width: 30vw;
-  font-size: 2.2rem;
+
+  font-size:18px;
   font-weight: bold;
+  text-align: left;
+  text-indent: 4px
 }
 .nametopof .codename img{
-  width: 2rem;
+  width:22px;
   height: auto;
   display: inline-block;
-  position: relative;
-  top: .2rem;
-  float: left;
+  float:left;
   margin-left: 1rem
 }
 .thebest span {
   display: flex;
   justify-content: center;
   align-items: center;
-  line-height:2.2rem;
+  line-height:20px;
+  font-size: 12px;
   text-align: center;
   background-color: #F43530;
   color: #fff;
-  margin:.3rem 2px;
+  margin:0 2px;
   padding: 0 5px;
   border-radius: 3px;
   text-overflow: ellipsis;
@@ -237,7 +240,7 @@ float: left;
 }
 .thebest {
   flex: 1;
-  padding-right: 1rem
+  padding:0 1rem
 }
 .money,
 .boxcode,
@@ -256,15 +259,15 @@ float: left;
   box-sizing: border-box
 }
 .money .usd {
-  font-size:2.4rem;
-  line-height: 2.6rem;
+  font-size:24px;
+  line-height:26px;
 }
 .money>.flbb{
-  height: 2.6rem;
+  height:26px;
 }
 .codeinfo {
   padding-top: .8rem;
-  font-size: 1.2em;
+  font-size:16px;
   color: #f43530;
   flex: 1;
   text-align: left;
@@ -292,13 +295,13 @@ float: left;
   color: #353535;
 }
 .about {
-  padding: 14px;
+  padding:10px 15px;
   color: #353535;
   background-color: #fff;
   overflow: hidden;
   transform: all 0.5s;
-    box-shadow:0px -20px 20px #fff inset;
-    position: relative;
+  box-shadow:0px -20px 20px #fff inset;
+  position: relative;
 }
 .about .elep {
   font-size: 14px;
@@ -313,11 +316,9 @@ float: left;
 }
 :root .bgwhite{filter:none;}
 .btnmore {
-  height: 34px;
   background-color: #fff;
-  line-height: 2;
-  padding: 8px 0;
-
+  font-size: 14px;
+  line-height: 34px;
 }
 .btnmore .morebtn {
   font-size: 14px;
@@ -327,13 +328,13 @@ float: left;
   color: #586c94;
 }
 .infolist {
-  margin-top: 14px;
+  margin-top:8px;
   background-color: #fff;
   font-size: 14px;
 }
 .infolist > div {
   height: 44px;
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid #e5e5e5;
   display: flex;
 }
 .infolist .name {
@@ -342,6 +343,7 @@ float: left;
   color: #999;
   padding-left: 14px;
   text-align: left;
+  font-size: 16px
 }
 .infolist .textin {
   flex: 3;
@@ -349,10 +351,10 @@ float: left;
   color: #666;
   text-align: right;
   padding-right: 14px;
+  font-size: 16px
 }
 .infolist a.textin {
   color: #498fe0;
-  font-weight: bold;
   text-decoration: none
 }
 .infolist > div:last-child {
@@ -399,17 +401,19 @@ float: left;
 .listbody .child {
   padding: 6px 0px 3px;
 }
+.listbody .listtitle>div{
+  font-size: 16px
+}
 .listbody .child .othertitle,
 .listbody .child .place .usd {
-  font-size: 1.5rem;
+  font-size:16px;
   color: #333;
   text-align: left;
   text-indent: 1rem;
-  font-weight: bold
 }
 .listbody .child .othertitle .small,
 .listbody .child .place .rmb {
-  font-size:1.2rem;
+  font-size:12px;
   color: #999;
   line-height: 1;
   margin-top:.5rem;

@@ -74,7 +74,7 @@ body{background-color: #f5f5f5;min-height:100vh}
 .listbody .listtitle>div,
 .listbody .listtitle>.child{
   flex: 1;
-  font-size: 1.4rem;
+  font-size:14px;
   line-height: 3;
   overflow: hidden;
 text-overflow:ellipsis;
@@ -97,8 +97,8 @@ white-space: nowrap;
   line-height: 20px;
   width:6.6rem;
   text-align: center;
-  font-weight: bold;
-  padding: 2px 0
+  padding: 2px 0;
+  font-size: 12px
 }
 .bfb {
   display: flex;
@@ -112,7 +112,7 @@ white-space: nowrap;
   line-height: 20px;
   width:6.6rem;
   text-align: center;
-  font-weight: bold;
+  font-size: 12px;
   padding: 2px 0
 }
 .seeall{

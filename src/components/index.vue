@@ -234,12 +234,13 @@ function backdata(obj) {
 }
 .moneoy {
   color: #ff0000;
-  font-size: 1.8rem;
+  font-size:16px;
+  font-weight: 1000
 }
 .chanum,
 .chaper {
   color: #ff0000;
-  font-size: 1.4rem;
+  font-size:12px;
 }
 .bg-w {
   background: #fff;
@@ -273,16 +274,17 @@ html {
   height: 100%;
 }
 .seemore {
-  width: 42vw;
-  height: 8vw;
+  width: 160px;
+  height:32px;
   background-color: #498fe0;
-  border-radius: 4vw;
+  border-radius:16px;
   color: #fff;
   text-align: center;
-  line-height: 8vw;
-  font-size: 1.4rem;
+  line-height:32px;
+  font-size:15px;
   display: block;
   margin: 1rem auto;
   text-decoration: none;
-}
+} 
+
 </style>
