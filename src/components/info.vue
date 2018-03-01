@@ -1,10 +1,14 @@
 <template>
+
   <div class="hello">
+    <navhead></navhead>
     <mt-loadmore :top-method="loadTop" :bottom-method="loadBottom" :bottom-all-loaded="allLoaded" ref="loadmore">
   <div class="nametopof flbb">
     <div class="codename"><img :src="infodata.logo" alt="">{{infodata.symbol}}</div>
-    <div class="thebest flbb" v-if="codekey.length>0">
-      <span v-for="(item,index) in codekey" :key="index">{{item}}</span>
+    <div class="thebest">
+      <span>排名：{{infodata.rank}}</span>
+      <span>{{infodata.category}}</span>
+      <span>{{infodata.concept}}</span>
     </div>
   </div>
   <div class="numcode">
@@ -23,7 +27,7 @@
       <div class="boxcode">
          <div  class="flbb">
            <div class="w60 flbb">
-            <div>24H量</div><div class="text-black">{{infodata.volume_24h_usd}}</div>
+            <div class="hnum">24H量</div><div class="text-black">{{infodata.volume_24h_usd}}</div>
            </div>
            <div class="w40 flbb">
               <div>24H最低</div><div class="text-black">¥{{infodata.low}}</div>
@@ -35,6 +39,7 @@
   </div>
   <div class="about" :class="heidata?'heidata':'heidatano'">
     <div class="elep">{{infodata.summary}}</div>
+    <img v-if="heidata" src="../assets/bgwhit.png" class="bgwhite">
   </div>
   <div class="btnmore">
     <div class="morebtn" v-on:click='showorhide()'>{{moretext}}</div>
@@ -81,7 +86,7 @@
     <div class="listtitle">
       <div class="name">市场</div>
       <div class="place">价格</div>
-      <div class="cjnum">24H交易量</div>
+      <div class="cjnum">24H交易额</div>
     </div>
     <div v-for="(item,index) in codeEXinfolist" :key="index" class="listtitle child">
       <div class="name">
@@ -120,7 +125,16 @@ export default {
     };
   },
   created:function(){
+    window.scrollTo(0,0)
     this.$options.methods.onloaddata(this);
+     this.refresh = setInterval(()=>{
+      this.$options.methods.onloaddata(this);
+    },5000)
+    document.documentElement.scrollTop =0;    
+    document.body.scrollTop = 0; 
+  },
+  destroyed:function(){
+    clearInterval(this.refresh)
   },
   methods: {
     handleChange(index) {},
@@ -176,6 +190,9 @@ function Trim(str, is_global) {
 .nametopof {
   padding-top: 1rem
 }
+.w60 .usd{
+  flex: 2
+}
 .w40>div, .w60>div{
   flex: 1;
   text-align: left;
@@ -204,7 +221,9 @@ function Trim(str, is_global) {
   margin-left: 1rem
 }
 .thebest span {
-
+  display: flex;
+  justify-content: center;
+  align-items: center;
   line-height:2.2rem;
   text-align: center;
   background-color: #F43530;
@@ -213,7 +232,7 @@ function Trim(str, is_global) {
   padding: 0 5px;
   border-radius: 3px;
   text-overflow: ellipsis;
- 
+float: left;
   overflow: hidden;
 }
 .thebest {
@@ -238,7 +257,6 @@ function Trim(str, is_global) {
 }
 .money .usd {
   font-size:2.4rem;
-  margin-right: 8px;
   line-height: 2.6rem;
 }
 .money>.flbb{
@@ -264,7 +282,7 @@ function Trim(str, is_global) {
   color: #999;
 }
 .heidata {
-  height:4.2rem;
+  height:8.2rem;
 }
 .heidatano {
   height: auto;
@@ -279,16 +297,27 @@ function Trim(str, is_global) {
   background-color: #fff;
   overflow: hidden;
   transform: all 0.5s;
+    box-shadow:0px -20px 20px #fff inset;
+    position: relative;
 }
 .about .elep {
   font-size: 14px;
   text-align: left;
 }
+.about .bgwhite {
+  width: 100%;
+  height: 40px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+:root .bgwhite{filter:none;}
 .btnmore {
   height: 34px;
   background-color: #fff;
   line-height: 2;
   padding: 8px 0;
+
 }
 .btnmore .morebtn {
   font-size: 14px;

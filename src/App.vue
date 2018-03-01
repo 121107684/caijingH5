@@ -1,8 +1,9 @@
 <template>
   <div id="app">
-    <navhead></navhead>
+    
     <router-view/>
     <navfooter></navfooter>
+    
   </div>
 </template>
 
@@ -24,8 +25,11 @@ body{background-color: #f5f5f5;min-height:100vh}
 }
 #app>.hello{
   min-height: 100vh;
-  padding:13.5vw 0 8rem;
-  margin: -13.5vw 0 -8rem
+  padding:0vw 0 8rem;
+  margin: 0vw 0 -8rem
+}
+#app>a{
+  display: none
 }
 .page{
   background-color: #f9f9f9
@@ -62,7 +66,7 @@ body{background-color: #f5f5f5;min-height:100vh}
   display: flex;
   border-bottom:1px solid #e0e0e0;
   text-decoration: none;
-  color: #333
+  color: #333;
 }
 .listbody .listtitle:last-child{
   border: none
@@ -89,19 +93,27 @@ white-space: nowrap;
 .listbody .listtitle .red{
   color: #fff;
   background: #F43530;
-  border-radius: 1rem;
-  display: inline;
+  border-radius:2rem;
   line-height: 20px;
-  padding:.2rem .5rem;
-  
+  width:6.6rem;
+  text-align: center;
+  font-weight: bold;
+  padding: 2px 0
+}
+.bfb {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .green{
   color: #fff;
   background: #00C203;
-  border-radius: 20px;
-  display: inline;
-  line-height: 40px;
-  padding:.2rem .5rem;
+  border-radius:2rem;
+  line-height: 20px;
+  width:6.6rem;
+  text-align: center;
+  font-weight: bold;
+  padding: 2px 0
 }
 .seeall{
   line-height: 88px;

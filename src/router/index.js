@@ -6,7 +6,7 @@ import about from '@/components/about'
 import copyright from '@/components/copyright'
 import declaration from '@/components/declaration'
 import info from '@/components/info'
-
+console.log(Router)
 Vue.use(Router)
 
 export default new Router({

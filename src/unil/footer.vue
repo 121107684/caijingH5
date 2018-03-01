@@ -5,7 +5,7 @@
             <router-link class="footerlink" :to="'./declaration'">免责声明</router-link>
             <router-link class="footerlink" :to="'./copyright'">版权声明</router-link>
         </div>
-        <p>京ICP备01111111号  同步财经&版权所有</p>
+        <!-- <p>京ICP备01111111号  同步财经&版权所有</p> -->
     </div>
 </template>
 

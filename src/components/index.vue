@@ -1,6 +1,6 @@
 <template>
 <div class="hello">
-
+    <navhead></navhead>
     <!-- <mt-search v-model="value">
       <mt-cell
         v-for="item in result"
@@ -17,7 +17,7 @@
                 <div class='numname'>{{datas.name_pair}}</div>
                 <div :class="datas.hasbl?'greentext':'redtext'" class="moneoy">¥{{datas.price_cny}}</div>
                 <div class="flaxbox">
-                  <div :class="datas.hasbl?'greentext':'redtext'" class="child chanum">¥{{datas.volumn_change_24h}}</div>
+                  <div :class="datas.hasbl?'greentext':'redtext'" class="child chanum">${{datas.price_usd}}</div>
                   <div :class="datas.hasbl?'greentext':'redtext'" class="child chaper">{{datas.hasbl?'':'+'}}{{datas.percent_change_24h}}%</div>
                 </div>
               </router-link>
@@ -37,13 +37,13 @@
            <div class="listtitle parent">
                       <div class="name">名称</div>
                       <div class="place ">价格</div>
-                      <div class="cjnum ">成交额</div>
+                      <div class="cjnum ">市值</div>
                       <div class="bfb textright">涨跌幅</div>
                    </div>
             <router-link class="listtitle child" v-for="(datasup,index) in caplist" :key="index" :to="{path:'/info',query: {id:datasup.symbol,title:datasup.name}}">
                 <div class="name">{{datasup.symbol}}</div>
                       <div class="place ">¥{{datasup.price_cny}}</div>
-                     <div class="cjnum ">${{datasup.market_cap_usd}}</div>
+                     <div class="cjnum ">¥{{datasup.market_cap_usd}}</div>
                       <div class="bfb">
                         <div :class="datasup.hasbl?'green':'red'">{{datasup.hasbl?'':'+'}}{{datasup.percent_change_24h}}%</div>
                       </div>
@@ -60,7 +60,7 @@
             <router-link class="listtitle child" v-for="(datasup,index) in uplist" :key="index" :to="{path:'/info',query: {id:datasup.symbol,title:datasup.name}}">
                 <div class="name">{{datasup.symbol}}</div>
                       <div class="place ">¥{{datasup.price_cny}}</div>
-                     <div class="cjnum ">${{datasup.volume_24h_usd}}</div>
+                     <div class="cjnum ">¥{{datasup.volume_24h_usd}}</div>
                       <div class="bfb">
                         <div  class="red">+{{datasup.percent_change_24h}}%</div>
                       </div>
@@ -77,7 +77,7 @@
             <router-link class="listtitle child" v-for="(datasup,index) in downlist" :key="index" :to="{path:'/info',query: {id:datasup.symbol,title:datasup.name}}">
                 <div class="name">{{datasup.symbol}}</div>
                       <div class="place ">¥{{datasup.price_cny}}</div>
-                     <div class="cjnum ">${{datasup.volume_24h_usd}}</div>
+                     <div class="cjnum ">¥{{datasup.volume_24h_usd}}</div>
                       <div class="bfb">
                         <div class="green">{{datasup.percent_change_24h}}%</div>
                       </div>
@@ -113,9 +113,18 @@ export default {
   props: {},
   components: {},
   created: function() {
+    window.scrollTo(0,0)
     this.$options.methods.onloaddata(this);
+    this.refresh = setInterval(()=>{
+      this.$options.methods.onloaddata(this);
+    },5000)
+    document.documentElement.scrollTop =0;    
+    document.body.scrollTop = 0; 
   },
-  methods: {
+  destroyed:function(){
+    clearInterval(this.refresh)
+  },
+  methods: {  
     onloaddata: function(that) {
       that.$ajax
         .get("/getFocusCoins", { params: {} })
@@ -200,6 +209,7 @@ function backdata(obj) {
   height: 10rem;
   width: 100%;
   background: #fff;
+  margin-top: 1rem;
 }
 .flaxbox {
   display: flex;
