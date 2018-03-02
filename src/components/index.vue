@@ -8,8 +8,20 @@
         :value="item.value" key="item" >
       </mt-cell>
     </mt-search> -->
-    
+    <mt-search v-model="searchvalue" class="searchbox">
+      <mt-cell v-for="(datas,key) in result" :key="key" :to="{path:'/info',query: {id:datas.symbol,title:datas.name}}">
+            <div class="searchlistmodel">
+              <div class="title">{{datas.symbol}}</div>
+              <!-- <div class="money">¥{{datas.price_cny}}</div>
+              <div class="zd">
+                <div :class="datas.hasbl?'green':'red'">{{datas.hasbl?'':'+'}}{{datas.percent_change_24h}}</div>
+              </div> -->
+            </div>
+
+      </mt-cell>
+    </mt-search>
     <mt-loadmore :top-method="loadTop" :bottom-method="loadBottom" :bottom-all-loaded="allLoaded" ref="loadmore">
+      
     <mt-swipe class="bannerbox" :auto="6000"> 
       <mt-swipe-item v-for="(item,index) in background" :key="index">
             <div class="flaxbox"> 
@@ -97,8 +109,7 @@ export default {
   name: "index",
   data() {
     return {
-      msg: "Welcome to Your Vue.js App",
-      result: [{ title: "aaa" }],
+      result: [1,2,3,4],
       value: "",
       selected: "index",
       selectednavb: "1",
@@ -107,13 +118,18 @@ export default {
       background: [],
       caplist: [],
       uplist:[],
-      downlist:[]
+      downlist:[],
+      searchvalue:''
     };
   },
   props: {},
   components: {},
   created: function() {
-    window.scrollTo(0,0)
+    setTimeout(function(){
+      window.scrollTo(0,0)
+    },50)
+    
+    console.log(window)
     this.$options.methods.onloaddata(this);
     this.refresh = setInterval(()=>{
       this.$options.methods.onloaddata(this);
@@ -123,6 +139,20 @@ export default {
   },
   destroyed:function(){
     clearInterval(this.refresh)
+  },
+  watch:{
+     searchvalue(n,o){
+       if(n!=''){
+        this.$ajax.get("/getSearchList/"+n).then(res=>{
+           var fzarr = [];
+            for (var i = 0; i < res.data.data.length; i++) {
+              fzarr.push(backdata(res.data.data[i]))
+            }
+            this.result = fzarr
+        })
+       }
+        
+     }
   },
   methods: {  
     onloaddata: function(that) {
@@ -199,11 +229,46 @@ function backdata(obj) {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.searchlistmodel {
+  font-size: 14px;
+  display: flex;
+  position:absolute;
+  left: 0;
+  top:0;
+  width: 100%;
+  height: 36px;
+  border-bottom: 1px solid #ccc;
+  color: #333
+}
+.searchlistmodel .title,
+.searchlistmodel .money,
+.searchlistmodel .zd{
+  flex: 1;
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  text-indent: 20px
+}
+.zd .red{
+  color: #fff;
+  background: #F43530;
+  border-radius:2rem;
+  line-height: 20px;
+  width:6.6rem;
+  text-align: center;
+  padding: 2px 0;
+  font-size: 12px
+}
+.searchbox{
+  position: relative;
+  z-index: 100;
+}
 .mint-swipe {
   height: 8rem;
 }
 .mint-search {
   height: auto;
+  overflow: visible;
 }
 .bannerbox {
   height: 10rem;
@@ -235,7 +300,7 @@ function backdata(obj) {
 .moneoy {
   color: #ff0000;
   font-size:16px;
-  font-weight: 1000
+  font-weight: bold
 }
 .chanum,
 .chaper {
@@ -250,7 +315,6 @@ function backdata(obj) {
 }
 .listbody .listtitle.child .bfb {
   text-align: right;
-  margin-right:10px;
 }
 .table {
   width: 100%;
@@ -285,6 +349,25 @@ html {
   display: block;
   margin: 1rem auto;
   text-decoration: none;
-} 
-
+}
+.listbody .listtitle.parent .bfb{
+  padding-right: 15px;
+  justify-content:flex-end
+}
+.listbody .listtitle.parent  .place,
+.listbody .listtitle.parent  .cjnum{
+  text-align: center
+}
+.listbody .listtitle.child .place{
+  text-align: left;
+}
+.listbody .listtitle.child .cjnum{
+  text-align: right;
+  padding-right: 20px
+}
+.child .bfb{
+  display: flex;
+  justify-content: center;
+  padding-right:15px
+}
 </style>

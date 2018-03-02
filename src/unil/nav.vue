@@ -24,7 +24,7 @@
             }
         },
         created:function(){
-            console.log("aaaa")
+           
         }
     }
 </script>

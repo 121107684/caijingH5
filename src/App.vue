@@ -23,6 +23,9 @@ body{background-color: #f5f5f5;min-height:100vh}
   text-align: center;
   color: #2c3e50;
 }
+.mint-search-list{
+  overflow: visible
+}
 #app>.hello{
   min-height: 100vh;
   padding:0vw 0 8rem;
@@ -74,12 +77,20 @@ body{background-color: #f5f5f5;min-height:100vh}
 .listbody .listtitle>div,
 .listbody .listtitle>.child{
   flex: 1;
-  font-size:14px;
+  font-size:12px;
   line-height: 3;
   overflow: hidden;
 text-overflow:ellipsis;
 white-space: nowrap;
-
+}
+.listbody .listtitle.parent .name{
+  text-align: left;
+  text-indent: 15px
+}
+.listbody .listtitle.child .name{
+  font-weight: bold;
+  text-align: left;
+  padding-left: 15px
 }
 .listbody .listtitle .child,
 .listbody .listtitle>.child{

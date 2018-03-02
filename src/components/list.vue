@@ -44,7 +44,7 @@ export default {
   data() {
     return {
       alllist: "",
-      result: [{ title: "aaa" }],
+      result: [{title:'aaa'}],
       value: "",
       moneytype:'CNY',
       moneysty:"¥",
@@ -52,6 +52,7 @@ export default {
       allLoaded: true,
       indexpage:1,
       loading:false
+
     };
   },
   created:function(){

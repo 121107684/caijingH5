@@ -26,7 +26,7 @@
       <!-- <div class="rmb">${{infodata.price_usd}}</div> -->
       <div class="boxcode">
          <div  class="flbb">
-           <div class="w60 flbb">
+           <div class="w60 flbb" style="  padding-top: 8px">
             <div class="hnum">24H量</div><div class="text-black">{{infodata.volume_24h_usd}}</div>
            </div>
            <div class="w40 flbb">
@@ -59,7 +59,7 @@
     </div>
     <div>
       <div class="name">市值</div>
-      <div class="textin">${{infodata.market_cap_usd}}</div>
+      <div class="textin">¥{{infodata.market_cap_usd}}</div>
     </div>
     <div>
       <div class="name">核心算法</div>
@@ -83,7 +83,7 @@
 
 
   <div class="infoother listbody">
-    <div class="listtitle">
+    <div class="listtitle" style="padding-right:13px">
       <div class="name">市场</div>
       <div class="place">价格</div>
       <div class="cjnum">24H交易额</div>
@@ -125,7 +125,9 @@ export default {
     };
   },
   created:function(){
-    window.scrollTo(0,0)
+   setTimeout(function(){
+      window.scrollTo(0,0)
+    },50)
     this.$options.methods.onloaddata(this);
      this.refresh = setInterval(()=>{
       this.$options.methods.onloaddata(this);
@@ -179,17 +181,17 @@ function Trim(str, is_global) {
 <style scoped>
 .w60{
   flex: 5;
-  font-size: 1.4rem;
-  line-height: 2.2rem
+  font-size: 14px;
+  line-height: 22px;
 }
 .w40{
   flex: 4;
-  font-size: 1.4rem;
-  line-height: 2.2rem;
+  font-size: 14px;
+  line-height: 22px;
   padding-top:8px
 }
 .nametopof {
-  padding-top: 1rem
+  padding-top: 10px
 }
 .w60 .usd{
   flex: 2
@@ -206,7 +208,7 @@ function Trim(str, is_global) {
 .numcode {
   display: flex;
   background-color: #fff;
-  padding-top: 1rem;
+  padding-top: 10px;
 }
 .nametopof .codename{
 
@@ -220,13 +222,13 @@ function Trim(str, is_global) {
   height: auto;
   display: inline-block;
   float:left;
-  margin-left: 1rem
+  margin-left: 10px
 }
 .thebest span {
   display: flex;
   justify-content: center;
   align-items: center;
-  line-height:20px;
+  height: 20px;
   font-size: 12px;
   text-align: center;
   background-color: #F43530;
@@ -240,7 +242,7 @@ float: left;
 }
 .thebest {
   flex: 1;
-  padding:0 1rem
+  padding:0 5px
 }
 .money,
 .boxcode,
@@ -249,7 +251,7 @@ float: left;
   padding: 40rpx 0rpx 0rpx 0rpx;
 }
 .boxcode>.flbb{
-  height: 2.6rem;
+  height:26px;
 }
 
 .money {
@@ -266,7 +268,7 @@ float: left;
   height:26px;
 }
 .codeinfo {
-  padding-top: .8rem;
+  padding-top: 8px;
   font-size:16px;
   color: #f43530;
   flex: 1;
@@ -277,15 +279,15 @@ float: left;
   color: #00c203;
 }
 .aboutnum {
-  font-size: 1.6rem;
+  font-size: 16px;
   text-align: left;
-  line-height: 2.6rem
+  line-height:26px
 }
 .aboutnum {
   color: #999;
 }
 .heidata {
-  height:8.2rem;
+  height:82px;
 }
 .heidatano {
   height: auto;
@@ -383,10 +385,10 @@ float: left;
 }
 .listbody .listtitle:first-child .name{
   text-align: left;
-  text-indent: 1rem
+  text-indent:10px
 }
 .listbody .listtitle:first-child .place{
-  text-indent: 1.8rem;
+  text-indent: 18px;
   text-align: left
 }
 .listbody .listtitle > div {
@@ -399,7 +401,7 @@ float: left;
   display: flex;
 }
 .listbody .child {
-  padding: 6px 0px 3px;
+  padding: 6px 0px 6px;
 }
 .listbody .listtitle>div{
   font-size: 16px
@@ -409,27 +411,35 @@ float: left;
   font-size:16px;
   color: #333;
   text-align: left;
-  text-indent: 1rem;
+  text-indent:10px;
 }
 .listbody .child .othertitle .small,
 .listbody .child .place .rmb {
   font-size:12px;
   color: #999;
   line-height: 1;
-  margin-top:.5rem;
+  margin-top:7px;
   text-align: left;
-   text-indent: 1rem
+   text-indent: 10px
 }
 .listbody .child .otherinfo {
-  padding-top: .5rem;
-  font-size:1.2rem;
+  padding-top: 5px;
+  font-size:12px;
   color: #999;
   line-height: 1;
   text-align: left;
-   text-indent: 1rem
+   text-indent: 10px
+}
+.listbody .listtitle .cjnum {
+  display: flex;
+  justify-content: flex-end;
 }
 .listbody .listtitle.child .bfb div {
-  line-height:4rem;
-  font-size:1.6rem;
+  line-height:40px;
+  font-size:16px;
+}
+.listbody .listtitle.child .bfb{
+  justify-content: flex-end;
+  padding-right: 15px
 }
 </style>
