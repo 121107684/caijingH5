@@ -1,6 +1,6 @@
 <template>
 <div class="hello">
-    <navhead></navhead>
+    <navhead @updata="change" :name="name"></navhead>
     <!-- <mt-search v-model="value">
       <mt-cell
         v-for="item in result"
@@ -105,6 +105,7 @@
 </template>
 
 <script>
+
 export default {
   name: "index",
   data() {
@@ -119,7 +120,9 @@ export default {
       caplist: [],
       uplist:[],
       downlist:[],
-      searchvalue:''
+      searchvalue:'',
+      name:"baiyang",
+      childname:''
     };
   },
   props: {},
@@ -136,6 +139,7 @@ export default {
     },5000)
     document.documentElement.scrollTop =0;    
     document.body.scrollTop = 0; 
+    
   },
   destroyed:function(){
     clearInterval(this.refresh)
@@ -154,7 +158,10 @@ export default {
         
      }
   },
-  methods: {  
+  methods: { 
+    change:function(msg){
+      this.childname=msg
+    },
     onloaddata: function(that) {
       that.$ajax
         .get("/getFocusCoins", { params: {} })

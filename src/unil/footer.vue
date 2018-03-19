@@ -5,7 +5,8 @@
             <router-link class="footerlink" :to="'./declaration'">免责声明</router-link>
             <router-link class="footerlink" :to="'./copyright'">版权声明</router-link>
         </div>
-        <!-- <p>京ICP备01111111号  同步财经&版权所有</p> -->
+        {{footnum}}
+        <a class="beian" target="_blank" href="http://www.miitbeian.gov.cn">京ICP备17027002号  同步财经&版权所有</a>
     </div>
 </template>
 
@@ -29,9 +30,11 @@
         text-decoration: none;
         color: #fff;
     }
-    p{
+    .beian{
         margin: 0;
-        padding: 0
+        padding: 0;
+        color: #fff;
+        text-decoration: none
     }
 </style>
 
@@ -40,10 +43,19 @@
         name: 'navfooter',
         data() {
             return {
+                footnum:0
             }
         },
         created:function(){
            
+        },
+        computed:{
+            count(){
+                return this.$store.state.count++
+            },
+            ...Vuex.mapGetters({
+                footnum: "count" 
+            })
         }
     }
 </script>

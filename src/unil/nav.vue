@@ -1,7 +1,7 @@
 <template>
     <div class="container">
         <router-link :to="{path:'/'}">
-            <img src="../assets/navtop_02.jpg" alt="">
+            <img @click="updata" src="../assets/navtop_02.jpg" alt="">
         </router-link>
     </div>
 </template>
@@ -21,10 +21,21 @@
         name: 'navhead',
         data() {
             return {
+                namecild:"自组建的值"
             }
+        },
+        props:{
+            name:name
         },
         created:function(){
            
+        },
+        methods:{
+            updata:function(){ 
+                this.$store.commit('increment')
+                console.log(this.$store.state.count)
+            }
         }
+        
     }
 </script>
